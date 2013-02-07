@@ -1,0 +1,6 @@
+(define includeDIR (string-append "-C " (with-input-from-pipe "pkg-config --cflags opencv" read-line)))
+(define dynamicDIR "-L/usr/local/Cellar/opencv/2.4.3/lib/") ;패키지 인포메이션 가져오는데 버그 있음. 
+;(define dynamicDIR (string-append "-L " (with-input-from-pipe "pkg-config --libs opencv" read-line)))
+(define dynamicLIB '(-lm -lopencv_core -lopencv_highgui -lopencv_video -lopencv_imgproc -lopencv_objdetect))
+
+(compile -s -v ,includeDIR ,dynamicDIR ,@dynamicLIB  main.scm)
